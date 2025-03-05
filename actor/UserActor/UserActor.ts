@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
+import {v4} from 'uuid'
+import path from 'path'
 import { Responder } from "../middleware/Responder";
 
 export class UserActor {
@@ -33,6 +35,14 @@ export class UserActor {
     static async signup(req: Request, res: Response){
         // 1. get data 
         const {login, password} = req.body
+        let imgName = v4() + '.jpg';
+        console.log(req.files)
+        for (let i = 0; i < req.files.length; i++) {
+            imgName = uuid.v4() + '.jpg'
+            await req.files[i].mv(path.resolve(__dirname,'..', 'static', imgName))
+            console.log(imgName)
+        }
+        
         // 2. validate data
         if (!login || !password) {
             res.send(Responder.forbidden("Некорректные данные"))
