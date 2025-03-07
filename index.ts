@@ -9,8 +9,8 @@ const start = () => {
     try {
         const app = express()
         app.use(express.json())
-        app.use(fileUpload({}))
-        app.use(express.static(path.resolve(__dirname,'static')))
+        // app.use(fileUpload({}))
+        // app.use(express.static(path.resolve(__dirname,'static')))
         app.use('/', router)
         app.listen(PORT, () => console.log('run with: ', PORT))
     } catch (e) {
